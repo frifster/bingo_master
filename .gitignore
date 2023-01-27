@@ -9,3 +9,4 @@ config.json
 firebase/
 firebase/*
 firebase-debug.log
+service.json

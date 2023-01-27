@@ -2,7 +2,7 @@ import { Client, Events, GatewayIntentBits, Collection } from 'discord.js';
 import dotenv from 'dotenv';
 import { COMMANDS } from './commands/index.js';
 import admin from 'firebase-admin';
-import serviceAccount from './firebase/service.json' assert { type: "json" };
+import serviceAccount from './service.json' assert { type: "json" };
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
