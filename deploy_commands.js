@@ -1,22 +1,13 @@
-const { REST, Routes } = require('discord.js');
-const dotenv = require('dotenv');
+import { REST, Routes } from 'discord.js';
+import dotenv from 'dotenv';
+import { COMMANDS } from './commands/index.js'
+
 dotenv.config();
 
 const clientId = process.env.CLIENT_ID
 const guildId = process.env.GUILD_ID
 const token = process.env.DISCORD_BOT_TOKEN
 
-const fs = require('node:fs');
-
-const commands = [];
-// Grab all the command files from the commands directory you created earlier
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-// Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    commands.push(command.data.toJSON());
-}
 
 // Construct and prepare an instance of the REST module
 const rest = new REST({ version: '10' }).setToken(token);
@@ -25,14 +16,13 @@ const rest = new REST({ version: '10' }).setToken(token);
 (async () => {
 
     try {
-        console.log(`Started refreshing ${commands.length} application (/) commands.`);
+        console.log(`Started refreshing ${COMMANDS.length} application (/) commands.`);
+        const commandsData = COMMANDS.map(command => command.data.toJSON())
 
         // The put method is used to fully refresh all commands in the guild with the current set
-
-        console.log({ commands })
         const data = await rest.setToken(token).put(
             Routes.applicationGuildCommands(clientId, guildId),
-            { body: commands },
+            { body: commandsData },
         );
 
         console.log(`Successfully reloaded ${data.length} application (/) commands.`);
