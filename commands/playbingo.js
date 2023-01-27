@@ -26,9 +26,9 @@ export default {
     data,
     async execute(interaction) {
         // check live game first
-        const { channelId, user } = interaction;
+        const { guildId, user } = interaction;
 
-        const game = await checkLiveGame(channelId);
+        const game = await checkLiveGame(guildId);
 
         if (game) {
             return interaction.reply('May game na! Wag ka na gumawa!');
@@ -40,7 +40,7 @@ export default {
         const memberId = user.id
         const patternName = BINGO_PATTERNS.find(bp => bp.value === pattern.value).name
 
-        await createGame({ channelId, memberId, players: [], patternName, patternValue: pattern.value });
+        await createGame({ channelId: guildId, memberId, players: [], patternName, patternValue: pattern.value });
 
         let reply = ''
 

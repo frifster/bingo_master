@@ -14,7 +14,7 @@ const data = new SlashCommandBuilder()
 export default {
     data,
     async execute(interaction) {
-        const { channelId, user } = interaction;
+        const { guildId, user } = interaction;
 
         const player = interaction.options.get('player')
 
@@ -22,7 +22,7 @@ export default {
 
         const playerId = gamer.id
 
-        const response = await addPlayerToGame({ playerId, channelId })
+        const response = await addPlayerToGame({ playerId, channelId: guildId })
 
         let reply = `Salamat sa pagsali ${gamer.toString()}`
 
