@@ -1,6 +1,13 @@
 import { Client, Events, GatewayIntentBits, Collection } from 'discord.js';
 import dotenv from 'dotenv';
-import pogicommand from './commands/pogicommand.js';
+import { COMMANDS } from './commands/index.js';
+import admin from 'firebase-admin';
+import serviceAccount from './firebase/service.json' assert { type: "json" };
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
+
 
 dotenv.config();
 
@@ -12,12 +19,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 
-const COMMANDS = [
-    pogicommand
-]
-
 for (const command of COMMANDS) {
-    console.log({ command })
     // Set a new item in the Collection with the key as the command name and the value as the exported module
     if ('data' in command && 'execute' in command) {
         client.commands.set(command.data.name, command);
