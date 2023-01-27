@@ -12,5 +12,8 @@
     "dotenv": "^16.0.3",
     "firebase-admin": "^11.5.0"
   },
-  "type": "module"
+  "type": "module",
+  "engines": {
+    "node": ">= 16.9"
+  }
 }
