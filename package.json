@@ -1,0 +1,14 @@
+{
+  "name": "homeowners",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "deploy": "node deploy_commands.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  }
+}
