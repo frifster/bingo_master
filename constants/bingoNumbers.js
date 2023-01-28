@@ -35,7 +35,7 @@ export const BINGO_NUMBERS = {
 
     // N
     31: { chant: '' },
-    32: { chant: '' },
+    32: { chant: 'Sa letrang N: Baliw na  baliw sayu. Dos. B : 32' },
     33: { chant: '' },
     34: { chant: '' },
     35: { chant: '' },
