@@ -15,7 +15,7 @@ dotenv.config();
 const token = process.env.DISCORD_BOT_TOKEN
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+export const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 

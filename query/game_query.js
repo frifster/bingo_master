@@ -57,6 +57,14 @@ export const addPlayerToGame = async ({ playerId, channelId }) => {
     return 1
 }
 
+export const updatePlayerCards = async ({ playerCards, gameId }) => {
+    const firestore = admin.firestore();
+
+    const doc = `GAMES/${gameId}`;
+
+    return firestore.doc(doc).update({ playerCards });
+}
+
 export const endGame = async (gameId) => {
     const firestore = admin.firestore();
 
