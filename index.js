@@ -1,8 +1,8 @@
 import { Client, Events, GatewayIntentBits, Collection } from 'discord.js';
 import dotenv from 'dotenv';
-import { COMMANDS } from './commands/index.js';
 import admin from 'firebase-admin';
 import serviceAccount from './service.json' assert { type: "json" };
+import { COMMANDS } from './commands/index.js';
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -15,9 +15,11 @@ dotenv.config();
 const token = process.env.DISCORD_BOT_TOKEN
 
 // Create a new client instance
-export const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
+
+
 
 for (const command of COMMANDS) {
     // Set a new item in the Collection with the key as the command name and the value as the exported module

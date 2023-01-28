@@ -1,7 +1,7 @@
-import { SlashCommandBuilder, AttachmentBuilder } from "discord.js";
+import { SlashCommandBuilder, AttachmentBuilder, Client, GatewayIntentBits } from "discord.js";
 import { checkLiveGame } from "../query/game_query.js";
 import { drawUsingHTML } from "../helpers/pickNumbers.js";
-import { client } from "../index.js";
+
 
 const data = new SlashCommandBuilder()
     .setName('viewmycard')
@@ -23,6 +23,8 @@ const sendImage = async (client, buffer, channelId) => {
 export default {
     data,
     async execute(interaction) {
+        const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
         const { guildId, user, channelId } = interaction;
         // check if game is live
         const liveGame = await checkLiveGame(guildId)
@@ -36,28 +38,27 @@ export default {
             let playerCards = { ...liveGame.playerCards }
             const playerCARD = playerCards[user.id]
 
-            // const embed = new EmbedBuilder()
-            //     .setTitle("BINGO")
-
-            // for (const key in playerCARD) {
-            //     const numbers = playerCARD[key].join(',');
-            //     embed.addFields({ name: key, value: numbers });
-            // }
-            // embed.setColor("#ff0000");
 
             const channel = client.channels.cache.get(channelId);
 
-            await interaction.deferReply();
+            await interaction.deferReply(); // thinking
 
             const image = await drawUsingHTML(playerCARD)
-            const attachment = new AttachmentBuilder(image);
+
+            console.log({ image });
+
+            const attachment = new AttachmentBuilder(image, { name: 'bingo.jpeg', description: 'Your Card' });
+
+            console.log({ attachment });
 
             channel.send({ content: 'Please read me!', files: [{ attachment, name: 'bingo.jpeg', description: 'Your Card' }] });
 
-            return interaction.editReply('test')
+            console.log('sent?')
+
+            // return interaction.followUp('test')
 
 
-            // return interaction.reply('test')
+            return interaction.reply('test')
 
         }
 
