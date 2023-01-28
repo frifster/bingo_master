@@ -101,42 +101,42 @@ const bingoCardData = {
   G: [59, 52, 60, 50, 51],
   O: [75, 70, 64, 72, 65]
 };
-console.log(drawCardUsingAscii(bingoCardData));
-
 export const drawUsingHTML = async bingoCardData => {
   const htmlTemplate = `<!DOCTYPE html>
     <html>
       <head>
         <style>
           /* Add CSS styles for the bingo card table */
+          body {
+            display: grid;
+            place-items: center;
+          }
           table {
-            border-collapse: collapse;
-            /* width: 100%; */
-            background-color: darkgray;
-            color: black;
+              border-collapse: collapse;
+              background-color: darkgray;
+              color: black;
+              font-size: 1.9em;
           }
-    
+
           td {
-            border: 1px solid white;
-            padding: 1em;
-            text-align: center;
+              border: 1px solid white;
+              padding: 2em;
+              text-align: center;
           }
-    
+
           .letter-header {
-            font-weight: bold;
-            font-size: 1em;
-            background-color: teal;
+              font-weight: bold;
+              background-color: teal;
           }
-    
+
           /* Add styles for the Free Cell */
           .free {
-            background-color: #f2f2f2;
-            font-weight: bold;
-            color: black;
-            font-size: .8em;
-            padding: 0;
+              background-color: #f2f2f2;
+              font-weight: bold;
+              color: black;
+              padding: 0;
           }
-        </style>
+      </style>
       </head>
       <body>
         <table>
@@ -164,7 +164,7 @@ export const drawUsingHTML = async bingoCardData => {
           <tr>
             <td>${bingoCardData.B[2]}</td>
             <td>${bingoCardData.I[2]}</td>
-            <td>${bingoCardData.N[2]}</td>
+            <td class="free">${bingoCardData.N[2]}</td>
             <td>${bingoCardData.G[2]}</td>
             <td>${bingoCardData.O[2]}</td>
           </tr>
