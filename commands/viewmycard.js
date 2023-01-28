@@ -48,7 +48,7 @@ export default {
 
                 // fs.unlinkSync(imageName);
 
-                return interaction.followUp('TEST FOLLOW UP!')
+                return interaction.followUp(`This is your card. ${user}`)
 
             }
 
