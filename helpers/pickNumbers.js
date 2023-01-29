@@ -113,9 +113,8 @@ export const drawUsingHTML = async bingoCardData => {
           }
           table {
               border-collapse: collapse;
-              background-color: darkgray;
-              color: black;
               font-size: 1.9em;
+              background-color: #f2f2f2;
           }
 
           td {
@@ -131,8 +130,9 @@ export const drawUsingHTML = async bingoCardData => {
 
           /* Add styles for the Free Cell */
           .free {
-              background-color: #f2f2f2;
+              
               font-weight: bold;
+              background-color: darkgray;
               color: black;
               padding: 0;
           }
