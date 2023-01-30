@@ -1,3 +1,4 @@
+import generateRandomCard from "./generateRandomCard.js"
 import joinbingo from "./joinbingo.js"
 import listplayers from "./listplayers.js"
 import playbingo from "./playbingo.js"
@@ -9,5 +10,6 @@ export const COMMANDS = [
     joinbingo,
     startbingo,
     listplayers,
-    viewmycard
+    viewmycard,
+    generateRandomCard
 ]

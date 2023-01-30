@@ -105,15 +105,16 @@ export const drawUsingHTML = async bingoCardData => {
   const htmlTemplate = `<!DOCTYPE html>
     <html>
       <head>
-        <style>
+      <style>
           /* Add CSS styles for the bingo card table */
           body {
-            display: grid;
-            place-items: center;
+              display: grid;
+              place-items: center;
           }
+
           table {
               border-collapse: collapse;
-              font-size: 1.9em;
+              font-size: 1.95em;
               background-color: #f2f2f2;
           }
 
@@ -125,16 +126,15 @@ export const drawUsingHTML = async bingoCardData => {
 
           .letter-header {
               font-weight: bold;
-              background-color: teal;
+              background-color: #3dc769;
+              color: black;
           }
 
           /* Add styles for the Free Cell */
           .free {
-              
-              font-weight: bold;
-              background-color: darkgray;
-              color: black;
               padding: 0;
+              color: black;
+              font-size: 2em;
           }
       </style>
       </head>
@@ -164,7 +164,7 @@ export const drawUsingHTML = async bingoCardData => {
           <tr>
             <td>${bingoCardData.B[2]}</td>
             <td>${bingoCardData.I[2]}</td>
-            <td class="free">${bingoCardData.N[2]}</td>
+            <td class="free">✵</td>
             <td>${bingoCardData.G[2]}</td>
             <td>${bingoCardData.O[2]}</td>
           </tr>

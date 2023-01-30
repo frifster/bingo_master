@@ -1,19 +1,6 @@
 import { REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
-import playbingo from './commands/playbingo.js';
-import joinbingo from './commands/joinbingo.js';
-import startbingo from './commands/startbingo.js';
-import listplayers from './commands/listplayers.js';
-import viewmycard from './commands/viewmycard.js';
-
-
-const COMMANDS = [
-    playbingo,
-    joinbingo,
-    startbingo,
-    listplayers,
-    viewmycard
-]
+import { COMMANDS } from './commands/index.js';
 
 dotenv.config();
 
