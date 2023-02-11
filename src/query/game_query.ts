@@ -9,7 +9,11 @@ export const createGame = async (bingoGame: BingoGame) => {
   });
 };
 
-export const checkLiveGame = async (channelId: string) => {
+export const checkLiveGame = async (channelId?: string | null) => {
+  if (!channelId) {
+    return 0;
+  }
+
   const firestore = admin.firestore();
   const docs = await firestore
     .collection("GAMES")

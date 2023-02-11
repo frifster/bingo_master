@@ -1,5 +1,6 @@
-import { SlashCommandBuilder, Interaction } from "discord.js";
+import { SlashCommandBuilder, CommandInteraction } from "discord.js";
 import { checkLiveGame } from "../query/game_query.js";
+import { NO_PLAYERS_YET } from "@constants/callToActions.js";
 
 const data = new SlashCommandBuilder()
   .setName("listbingoplayers")
@@ -7,7 +8,7 @@ const data = new SlashCommandBuilder()
 
 export default {
   data,
-  async execute(interaction: Interaction) {
+  async execute(interaction: CommandInteraction) {
     const { guildId } = interaction;
     const game = await checkLiveGame(guildId);
 
@@ -19,10 +20,14 @@ export default {
         user: game.players,
       });
 
-      reply = `\nPlayers:${players.map((player) => `\n${player.toString()}`)}`;
+      if (players) {
+        reply = `\nPlayers:${players.map(
+          (player) => `\n${player.toString()}`
+        )}`;
 
-      if (!players.size) {
-        reply = "Wala pang player. Sali ka na! type /joinbingo";
+        if (!players.size) {
+          reply = NO_PLAYERS_YET;
+        }
       }
     }
 
