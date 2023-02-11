@@ -1,14 +1,16 @@
-import { SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { checkLiveGame, updatePlayerCards } from "../query/game_query.js";
 import { pickNumbers, standardBingoCard } from "../helpers/pickNumbers.js";
+import { NO_GAME_YET, STARTING_GAME } from "@constants/callToActions.js";
+import { CMD_DESC, CMD_NAMES } from "@constants/commands.js";
 
 const data = new SlashCommandBuilder()
-  .setName("startbingo")
-  .setDescription("Start playing bingo!!");
+  .setName(CMD_NAMES.SB)
+  .setDescription(CMD_DESC.SB);
 
 export default {
   data,
-  async execute(interaction) {
+  async execute(interaction: CommandInteraction) {
     const { guildId } = interaction;
     // check if game is live
     const liveGame = await checkLiveGame(guildId);
@@ -25,11 +27,9 @@ export default {
 
       await updatePlayerCards({ playerCards, gameId: liveGame.id });
 
-      return interaction.reply("Game in progress!");
+      return interaction.reply(STARTING_GAME);
     }
 
-    return interaction.reply(
-      "Wala pang game. Masyado kang excited. type /playbingo to start a game!"
-    );
+    return interaction.reply(NO_GAME_YET);
   },
 };

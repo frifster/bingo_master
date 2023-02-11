@@ -3,6 +3,7 @@ export enum CMD_NAMES {
   JB = "joinbingo",
   LB = "listbingoplayers",
   PB = "playbingo",
+  SB = "startbingo",
 }
 
 export const CMD_DESC = {
@@ -10,4 +11,5 @@ export const CMD_DESC = {
   JB: "Join the current bingo game.",
   LB: "List Bingo Players for current Game",
   PB: "Create new bingo game and start inviting player",
+  SB: "Starts the bingo game",
 };

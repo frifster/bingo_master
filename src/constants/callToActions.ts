@@ -7,3 +7,5 @@ export const YOU_ARE_IN_THE_GAME =
 export const NO_PLAYERS_YET = "Wala pang player. Sali ka na! type /joinbingo";
 
 export const GAME_IN_PROGRESS = "May game na! Wag ka na gumawa!";
+
+export const STARTING_GAME = "Staring the game. please wait...";
