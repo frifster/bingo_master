@@ -1,4 +1,9 @@
-export const BINGO_PATTERNS = [
+type BingoPattern = {
+  name: string;
+  value: string;
+};
+
+export const BINGO_PATTERNS: BingoPattern[] = [
   { name: "Diagonal", value: "diagonal" },
   { name: "Small Square", value: "small_square" },
   { name: "Small Square sa Loob ng Free", value: "small_square_free" },

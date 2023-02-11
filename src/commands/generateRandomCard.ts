@@ -1,10 +1,11 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { drawUsingHTML, standardBingoCard } from "../helpers/pickNumbers.js";
 import fs from "fs";
+import { CMD_NAMES, CMD_DESC } from "../constants/commands.js";
 
 const data = new SlashCommandBuilder()
-  .setName("generatecard")
-  .setDescription("Generate a random bingo card for fun.");
+  .setName(CMD_NAMES.GC)
+  .setDescription(CMD_DESC.GC);
 
 export default {
   data,
