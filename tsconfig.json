@@ -12,7 +12,8 @@
       "resolveJsonModule": true,
       "forceConsistentCasingInFileNames": true,
       "paths": {
-        "@constants/*":["./src/constants/*"]
+        "@constants/*":["./src/constants/*"],
+        "@queries/*":["./src/query/*"]
       }
     }
   }

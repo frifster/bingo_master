@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import { BingoGame, PlayerInfo } from "./types";
+import { BingoGame, PlayerInfo } from "../types";
 
 export const createGame = async (bingoGame: BingoGame) => {
   const firestore = admin.firestore();

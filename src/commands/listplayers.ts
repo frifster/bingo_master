@@ -1,10 +1,11 @@
 import { SlashCommandBuilder, CommandInteraction } from "discord.js";
 import { checkLiveGame } from "../query/game_query.js";
 import { NO_PLAYERS_YET } from "@constants/callToActions.js";
+import { CMD_DESC, CMD_NAMES } from "@constants/commands.js";
 
 const data = new SlashCommandBuilder()
-  .setName("listbingoplayers")
-  .setDescription("List Bingo Players for current Game");
+  .setName(CMD_NAMES.LB)
+  .setDescription(CMD_DESC.LB);
 
 export default {
   data,

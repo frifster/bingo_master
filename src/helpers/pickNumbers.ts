@@ -1,5 +1,5 @@
 import nodeHtmlToImage from "node-html-to-image";
-import { PlayerCard } from "../query/types";
+import { PlayerCard } from "../types";
 
 export const pickNumbers = () => {
   // create an array of numbers from 1 to 75
