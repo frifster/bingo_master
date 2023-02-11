@@ -1,8 +1,10 @@
 import { Client, Events, GatewayIntentBits, Collection } from "discord.js";
 import dotenv from "dotenv";
-import admin from "firebase-admin";
-import serviceAccount from "../service.json";
+import admin, { ServiceAccount } from "firebase-admin";
+import _serviceAccount from "../service.json";
 import { COMMANDS } from "./commands/index.js";
+
+const serviceAccount = _serviceAccount as ServiceAccount;
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -23,7 +25,7 @@ for (const command of COMMANDS) {
     client.commands.set(command.data.name, command);
   } else {
     console.log(
-      `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+      `[WARNING] The command at ${command} is missing a required "data" or "execute" property.`
     );
   }
 }

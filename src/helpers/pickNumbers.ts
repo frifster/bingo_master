@@ -1,4 +1,5 @@
 import nodeHtmlToImage from "node-html-to-image";
+import { PlayerCard } from "../query/types";
 
 export const pickNumbers = () => {
   // create an array of numbers from 1 to 75
@@ -11,9 +12,10 @@ export const pickNumbers = () => {
   }
 
   return numbers;
-}
+};
 
-const range = (start, end = 15) => Array.apply(0, Array(end)).map((e, i) => (i + start));
+const range = (start, end = 15) =>
+  Array.apply(0, Array(end)).map((e, i) => i + start);
 const shuffleArray = (array) => {
   let clone = array.slice(0);
   for (let i = clone.length - 1; i > 0; i--) {
@@ -21,18 +23,18 @@ const shuffleArray = (array) => {
     let temp = clone[i];
     clone[i] = clone[j];
     clone[j] = temp;
-  };
+  }
   return clone;
 };
 
-const randomColumn = start => {
+const randomColumn = (start) => {
   const array = range(start);
   return shuffleArray(array).slice(0, 5);
 };
 
-export const standardBingoCard = () => {
+export const standardBingoCard = (): PlayerCard => {
   const nColumn = randomColumn(31);
-  nColumn[2] = 'Free';
+  nColumn[2] = "Free";
   const card = {
     B: randomColumn(1),
     I: randomColumn(16),
@@ -40,68 +42,31 @@ export const standardBingoCard = () => {
     G: randomColumn(46),
     O: randomColumn(61),
   };
-  return card
-};
-
-
-export const visualizeCard = (bingoCard) => {
-  let response = "```\n";
-  response += "B\t\t\t\tI\t\t\t\tN\t\t\t\tG\t\t\t\tO\n";
-  for (let i = 0; i < 5; i++) {
-    response += bingoCard["B"][i] + "\t\t\t\t" + bingoCard["I"][i] + "\t\t\t\t" + bingoCard["N"][i] + "\t\t\t\t" + bingoCard["G"][i] + "\t\t\t\t" + bingoCard["O"][i] + "\n";
-  }
-  response += "```";
-
-  return response
-}
-
-export const drawCardUsingAscii = (bingoCardData) => {
-  let card = '';
-  let topRow = "---------------------------------------------\n|       ||       ||       ||       ||       |\n|   B   ||   I   ||   N   ||   G   ||   O   |\n";
-  let secondRow = "|       ||       ||       ||       ||       |\n";
-  card += topRow;
-  card += secondRow;
-  for (let i = 0; i < 5; i++) {
-    let row = "---------------------------------------------\n|       ||       ||       ||       ||       |\n";
-    for (let key in bingoCardData) {
-      let num = bingoCardData[key][i];
-      if (num === "Free") {
-        num = "Free";
-      }
-
-      const numLen = String(num).length
-      if (numLen === 2) {
-        row += `|  ${num}   |`;
-      }
-
-      if (numLen === 4) {
-        row += `| ${num}  |`;
-      }
-
-      if (numLen === 1) {
-        row += `|   ${num}   |`;
-      }
-
-
-
-    }
-    row += '\n|       ||       ||       ||       ||       |\n';
-    card += row;
-  }
-
-  card += '---------------------------------------------';
   return card;
 };
 
+export const visualizeCard = (bingoCard: PlayerCard) => {
+  let response = "```\n";
+  response += "B\t\t\t\tI\t\t\t\tN\t\t\t\tG\t\t\t\tO\n";
+  for (let i = 0; i < 5; i++) {
+    response +=
+      bingoCard["B"][i] +
+      "\t\t\t\t" +
+      bingoCard["I"][i] +
+      "\t\t\t\t" +
+      bingoCard["N"][i] +
+      "\t\t\t\t" +
+      bingoCard["G"][i] +
+      "\t\t\t\t" +
+      bingoCard["O"][i] +
+      "\n";
+  }
+  response += "```";
 
-const bingoCardData = {
-  B: [14, 12, 3, 4, 9],
-  I: [30, 26, 24, 23, 29],
-  N: [43, 41, 'Free', 39, 45],
-  G: [59, 52, 60, 50, 51],
-  O: [75, 70, 64, 72, 65]
+  return response;
 };
-export const drawUsingHTML = async bingoCardData => {
+
+export const drawUsingHTML = async (bingoCardData: PlayerCard) => {
   const htmlTemplate = `<!DOCTYPE html>
     <html>
       <head>
@@ -185,17 +150,14 @@ export const drawUsingHTML = async bingoCardData => {
         </table>
       </body>
     </html>
-    `
+    `;
 
   return nodeHtmlToImage({
     html: htmlTemplate,
     quality: 100,
-    type: 'jpeg',
+    type: "jpeg",
     puppeteerArgs: {
-      args: ['--no-sandbox'],
+      args: ["--no-sandbox"],
     },
-    encoding: 'buffer',
-  })
-}
-
-
+  });
+};

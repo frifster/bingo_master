@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, Interaction } from "discord.js";
+import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { drawUsingHTML, standardBingoCard } from "../helpers/pickNumbers.js";
 import fs from "fs";
 
@@ -8,12 +8,12 @@ const data = new SlashCommandBuilder()
 
 export default {
   data,
-  async execute(interaction: Interaction) {
+  async execute(interaction: CommandInteraction) {
     const { user } = interaction;
 
     await interaction.deferReply(); // thinking
 
-    const image = await drawUsingHTML(standardBingoCard());
+    const image = (await drawUsingHTML(standardBingoCard())) as string;
 
     const imageName = `./cards/cardMoRandom${user.id}.jpeg`;
 
@@ -23,7 +23,7 @@ export default {
 
     fs.writeFileSync(imageName, image);
 
-    interaction.channel.send({
+    interaction.channel?.send({
       files: [
         {
           attachment: imageName,

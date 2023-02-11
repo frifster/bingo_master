@@ -1,20 +1,10 @@
 import admin from "firebase-admin";
-import { BINGO_GAME } from "./types";
+import { BingoGame, PlayerInfo } from "./types";
 
-export const createGame = async ({
-  channelId,
-  memberId,
-  players,
-  patternName,
-  patternValue,
-}: BINGO_GAME) => {
+export const createGame = async (bingoGame: BingoGame) => {
   const firestore = admin.firestore();
   return firestore.collection("GAMES").add({
-    channelId,
-    memberId,
-    players,
-    patternName,
-    patternValue,
+    ...bingoGame,
     gameEnded: false,
   });
 };
@@ -34,15 +24,15 @@ export const checkLiveGame = async (channelId: string) => {
   const liveGame = {
     ...docs.docs[0].data(),
     id: docs.docs[0].id,
-  };
+  } as BingoGame;
 
   return liveGame;
 };
 
-export const addPlayerToGame = async ({ playerId, channelId }) => {
+export const addPlayerToGame = async (playerInfo: PlayerInfo) => {
   const firestore = admin.firestore();
 
-  const liveGame = await checkLiveGame(channelId);
+  const liveGame = await checkLiveGame(playerInfo.channelId);
 
   if (!liveGame) {
     return 0;
@@ -50,10 +40,10 @@ export const addPlayerToGame = async ({ playerId, channelId }) => {
 
   const doc = `GAMES/${liveGame.id}`;
 
-  if (![...liveGame.players].includes(playerId)) {
+  if (![...liveGame.players].includes(playerInfo.playerId)) {
     return firestore
       .doc(doc)
-      .update({ players: [...liveGame.players, playerId] });
+      .update({ players: [...liveGame.players, playerInfo.playerId] });
   }
 
   return 1;
