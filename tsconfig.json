@@ -13,6 +13,7 @@
       "forceConsistentCasingInFileNames": true,
       "paths": {
         "@constants/*":["./src/constants/*"],
+        "@commands":["./src/commands/index.ts"],
         "@queries/*":["./src/query/*"]
       }
     }

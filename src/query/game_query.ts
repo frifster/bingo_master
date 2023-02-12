@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import { BingoGame, PlayerInfo } from "../types";
+import { BingoGame, PlayerInfo, UpdatePlayerInfo } from "../types";
 
 export const createGame = async (bingoGame: BingoGame) => {
   const firestore = admin.firestore();
@@ -53,15 +53,15 @@ export const addPlayerToGame = async (playerInfo: PlayerInfo) => {
   return 1;
 };
 
-export const updatePlayerCards = async ({ playerCards, gameId }) => {
+export const updatePlayerCards = async (playerInfo: UpdatePlayerInfo) => {
   const firestore = admin.firestore();
 
-  const doc = `GAMES/${gameId}`;
+  const doc = `GAMES/${playerInfo.gameId}`;
 
-  return firestore.doc(doc).update({ playerCards });
+  return firestore.doc(doc).update({ playerCards: playerInfo.playerCards });
 };
 
-export const endGame = async (gameId) => {
+export const endGame = async (gameId: string) => {
   const firestore = admin.firestore();
 
   return firestore.doc(`GAMES/${gameId}`).update({ gameEnded: true });

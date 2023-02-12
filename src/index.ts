@@ -2,7 +2,8 @@ import { Client, Events, GatewayIntentBits, Collection } from "discord.js";
 import dotenv from "dotenv";
 import admin, { ServiceAccount } from "firebase-admin";
 import _serviceAccount from "../service.json";
-import { COMMANDS } from "./commands/index.js";
+import { COMMANDS } from "./commands";
+import { ExtendedClient } from "./types";
 
 const serviceAccount = _serviceAccount as ServiceAccount;
 
@@ -15,7 +16,9 @@ dotenv.config();
 const token = process.env.DISCORD_BOT_TOKEN;
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+  intents: [GatewayIntentBits.Guilds],
+}) as ExtendedClient;
 
 client.commands = new Collection();
 
@@ -42,7 +45,9 @@ client.login(token);
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
-  const command = interaction.client.commands.get(interaction.commandName);
+  const client = interaction.client as ExtendedClient;
+
+  const command = client.commands.get(interaction.commandName);
 
   if (!command) {
     console.error(`No command matching ${interaction.commandName} was found.`);

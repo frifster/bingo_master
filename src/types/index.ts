@@ -1,9 +1,11 @@
+import { Client, Collection } from "discord.js";
+
 export type PlayerCard = {
-  B: FiveArrofNumbers;
-  I: FiveArrofNumbers;
-  N: ArrOfNumAndFree;
-  G: FiveArrofNumbers;
-  O: FiveArrofNumbers;
+  B: number[];
+  I: number[];
+  N: (number | string)[];
+  G: number[];
+  O: number[];
 };
 
 export type BingoGame = {
@@ -23,5 +25,13 @@ export type PlayerInfo = {
   channelId: string;
 };
 
-type FiveArrofNumbers = [number, number, number, number, number];
-type ArrOfNumAndFree = [number, number, "Free", number, number];
+export type UpdatePlayerInfo = {
+  playerCards: {
+    [key: string]: PlayerCard;
+  };
+  gameId: string;
+};
+
+export type ExtendedClient = Client & {
+  commands: Collection<any, any>;
+};
